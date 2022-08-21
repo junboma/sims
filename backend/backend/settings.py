@@ -76,9 +76,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'dj_db_conn_pool.backends.mysql',
+        'NAME': 'students',
+        'PORT': '3306',
+        'HOST': '127.0.0.1',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        # 'POOL_OPTIONS': {  # 连接池的配置信息
+        #     'POOL_SIZE': 10,  # 创建的连接对象的数量
+        #     'MAX_OVERFLOW': 10  # 默认创建的连接对象的最大数量
+        # },
     }
 }
 
@@ -125,3 +138,55 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 日志
+LOGGING = {
+    'version': 1,   # 官方日志版本
+    'disable_existing_loggers': False,
+    'formatters': { # 日志格式
+        'verbose': {    # 详细格式
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',   # 变量分隔符
+        },
+        'simple': { # 简单格式
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {    # 过滤器
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {   # 日志处理流程
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        # 'mail_admins': {
+        #     'level': 'ERROR',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        #     'filters': ['special']
+        # }
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            # 日志位置，日志文件名，日志保存目录logs必须手动创建
+            'filename': BASE_DIR / "logs/debug.log",
+            # 单个日志文件的最大值，设置为300m
+            'maxBytes': 300 * 1024 * 1024,
+            # 备份日志文件的数量，设置最大日志数量为10
+            'backupCount': 10,
+            # 日志格式：详细格式
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {    # 日志处理的命名空间
+        'django': {
+            'handlers': ['console','file'],
+            'propagate': True,
+        },
+    }
+}
