@@ -1,0 +1,15 @@
+
+**/.idea/
+**.sqlite3
+**/__pycache__/
+*.log
+*.DS_Store
+
+**/node_modules
+**/dist
+**/dist-ssr
+**/*.local
+
+# Editor directories and files
+**/.vscode/*
+
