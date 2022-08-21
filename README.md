@@ -13,8 +13,8 @@
 
 ### 考评表填写模版
 
-![image-20220821163612912](/Users/junbo/Desktop/GitHub/SIMS/image/image-20220821163612912.png)
+![image-20220821163612912](/image/image-20220821163612912.png)
 
 ### 考评表导入模版
 
-![image-20220821163806285](/Users/junbo/Desktop/GitHub/SIMS/image/image-20220821163806285.png)
+![image-20220821163806285](/image/image-20220821163806285.png)
