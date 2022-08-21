@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'students',
 ]
 
@@ -88,10 +89,10 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'USER': 'root',
         'PASSWORD': 'root',
-        # 'POOL_OPTIONS': {  # 连接池的配置信息
-        #     'POOL_SIZE': 10,  # 创建的连接对象的数量
-        #     'MAX_OVERFLOW': 10  # 默认创建的连接对象的最大数量
-        # },
+        'POOL_OPTIONS': {  # 连接池的配置信息
+            'POOL_SIZE': 10,  # 创建的连接对象的数量
+            'MAX_OVERFLOW': 10  # 默认创建的连接对象的最大数量
+        },
     }
 }
 
@@ -189,4 +190,10 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+# DRF配置
+REST_FRAMEWORK = {
+    # 自定义异常处理
+    'EXCEPTION_HANDLER': 'backend.utils.exceptions.custom_exception_handler',
 }
